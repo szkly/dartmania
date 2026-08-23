@@ -28,6 +28,15 @@ body.final-round::before {
   z-index: 0;
 }
 
+body.game-active {
+  height: 100vh;
+  overflow: hidden;
+}
+
+body.game-active #app {
+  height: 100%;
+}
+
 #app {
   display: flex;
   flex-direction: column;
@@ -40,15 +49,22 @@ body.final-round::before {
   position: relative;
 }
 
+#screen-game.active {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
 .topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 40px;
+  padding: clamp(10px, 1.4vw, 20px) clamp(16px, 2.5vw, 40px);
   background: linear-gradient(90deg, #301753, #0e1b5b);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
-  gap: 12px;
+  gap: clamp(8px, 1vw, 12px);
 }
 
 .brand {
@@ -58,7 +74,7 @@ body.final-round::before {
 }
 
 .logo {
-  font-size: 28px;
+  font-size: clamp(22px, 2vw, 28px);
   font-weight: 700;
   letter-spacing: 1px;
 }
@@ -70,7 +86,9 @@ body.final-round::before {
 
 .nav-actions {
   display: flex;
-  gap: 12px;
+  gap: clamp(6px, 0.8vw, 12px);
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .theme-nav-button {
@@ -78,24 +96,27 @@ body.final-round::before {
 }
 
 .top-game-mode {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 24px;
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  font-size: clamp(16px, 1.7vw, 24px);
   font-weight: 700;
   letter-spacing: 1px;
   color: rgba(255, 255, 255, 0.95);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .nav-button {
-  padding: 12px 18px;
+  padding: clamp(8px, 0.9vw, 12px) clamp(10px, 1.2vw, 18px);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.15);
   background: rgba(255, 255, 255, 0.08);
   color: #fff;
-  font-size: 16px;
+  font-size: clamp(14px, 1.2vw, 16px);
   cursor: pointer;
-  min-width: 120px;
+  min-width: 0;
 }
 
 .nav-button:hover {
@@ -104,7 +125,10 @@ body.final-round::before {
 
 main {
   flex: 1;
-  padding: 30px 40px 50px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(14px, 2vw, 30px) clamp(16px, 2.5vw, 40px) clamp(24px, 3.5vw, 50px);
 }
 
 .screen {
@@ -117,8 +141,8 @@ main {
 }
 
 h1 {
-  font-size: 32px;
-  margin-bottom: 20px;
+  font-size: clamp(22px, 2.4vw, 32px);
+  margin-bottom: clamp(12px, 1.5vw, 20px);
 }
 
 .player-count {
@@ -153,9 +177,9 @@ h1 {
 
 .player-names {
   display: grid;
-  grid-template-columns: repeat(2, minmax(240px, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: clamp(10px, 1.2vw, 16px);
+  margin-bottom: clamp(16px, 2vw, 24px);
 }
 
 .player-names input {
@@ -169,14 +193,14 @@ h1 {
 }
 
 .primary-button {
-  padding: 16px 24px;
-  font-size: 20px;
+  padding: clamp(12px, 1.3vw, 16px) clamp(16px, 1.8vw, 24px);
+  font-size: clamp(17px, 1.5vw, 20px);
   border-radius: 18px;
   border: none;
   background: linear-gradient(120deg, #ff4f7a, #ffb84f);
   color: #1a0e1f;
   cursor: pointer;
-  min-width: 200px;
+  min-width: min(200px, 100%);
   box-shadow: 0 10px 20px rgba(255, 79, 122, 0.3);
 }
 
@@ -214,28 +238,28 @@ h1 {
 
 .mode-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(240px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: clamp(14px, 1.6vw, 20px);
 }
 
 .mode-card {
   border: none;
   border-radius: 24px;
-  padding: 24px;
+  padding: clamp(16px, 1.8vw, 24px);
   background: linear-gradient(140deg, #27124c, #1b2b6f);
   color: #fff;
   cursor: pointer;
-  min-height: 180px;
+  min-height: clamp(140px, 18vh, 180px);
   text-align: left;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
 }
 
 .mode-card p {
-  font-size: 24px;
+  font-size: clamp(17px, 1.7vw, 24px);
 }
 
 .mode-title {
-  font-size: 32px;
+  font-size: clamp(24px, 2.3vw, 32px);
   margin-bottom: 10px;
 }
 
@@ -338,62 +362,68 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: clamp(10px, 1.2vw, 16px);
+  margin-bottom: clamp(12px, 1.5vw, 20px);
 }
 
 .header-actions {
   display: flex;
-  gap: 120px;
+  gap: clamp(12px, 6vw, 120px);
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .game-header .secondary-button {
-  padding: 20px 32px;
-  font-size: 24px;
+  padding: clamp(12px, 1.5vw, 20px) clamp(16px, 2vw, 32px);
+  font-size: clamp(17px, 1.7vw, 24px);
 }
 
 .game-header .danger-button {
-  padding: 20px 32px;
-  font-size: 24px;
-  min-width: 180px;
+  padding: clamp(12px, 1.5vw, 20px) clamp(16px, 2vw, 32px);
+  font-size: clamp(17px, 1.7vw, 24px);
 }
 
 .active-player {
   background: rgba(255, 255, 255, 0.08);
-  padding: 16px 20px;
+  padding: clamp(10px, 1.3vw, 16px) clamp(12px, 1.6vw, 20px);
   border-radius: 20px;
-  min-width: 220px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: clamp(12px, 1.8vw, 28px);
   position: relative;
 }
 
+.active-player-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
 .active-name {
-  font-size: 26px;
+  font-size: clamp(19px, 1.9vw, 26px);
   margin-bottom: 6px;
   font-weight: 700;
 }
 
 .active-score {
-  font-size: 30px;
+  font-size: clamp(22px, 2.2vw, 30px);
   font-weight: 700;
 }
 
 .info-card {
-  padding: 14px 18px;
+  padding: clamp(10px, 1.1vw, 14px) clamp(12px, 1.4vw, 18px);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.12);
-  font-size: 24px;
-  min-width: 140px;
+  font-size: clamp(16px, 1.8vw, 24px);
+  min-width: clamp(96px, 10vw, 140px);
 }
 
 .player-meta {
   display: flex;
-  flex-direction: column;
   gap: 10px;
-  position: absolute;
-  top: calc(100% + 12px);
-  left: 0;
+  flex-wrap: wrap;
 }
 
 body.cricket-view .player-meta {
@@ -402,8 +432,10 @@ body.cricket-view .player-meta {
 
 .game-content {
   display: grid;
-  grid-template-columns: minmax(520px, 1fr) 420px;
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) clamp(300px, 26vw, 420px);
+  gap: clamp(14px, 1.8vw, 24px);
+  flex: 1;
+  min-height: 0;
 }
 
 .dartboard-panel {
@@ -411,25 +443,20 @@ body.cricket-view .player-meta {
   flex-direction: column;
   gap: 16px;
   align-items: center;
-  margin-top: -111px;
 }
 
 .board-stack {
-  width: min(70vh, 70vw);
-  min-width: 320px;
+  width: min(66vh, 100%);
   max-width: 850px;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .board-toggle-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  pointer-events: auto;
-  z-index: 2;
 }
 
 .board-toggle-top .toggle-button {
@@ -442,6 +469,12 @@ body.cricket-view .player-meta {
   aspect-ratio: 1 / 1;
 }
 
+.board-canvas-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 .board-wrapper.is-disabled {
   pointer-events: none;
   opacity: 0.6;
@@ -451,25 +484,25 @@ body.cricket-view .player-meta {
   position: absolute;
   left: 0px;
   bottom: 0px;
-  padding: 20px 36px;
+  padding: clamp(12px, 1.5vw, 20px) clamp(18px, 2.4vw, 36px);
   border-radius: 18px;
   border: none;
   background: rgba(255, 255, 255, 0.2);
   color: #fff;
-  font-size: 24px;
+  font-size: clamp(17px, 1.7vw, 24px);
   cursor: pointer;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
 }
 
 
 .toggle-button {
-  padding: 20px 36px;
+  padding: clamp(12px, 1.5vw, 20px) clamp(18px, 2.4vw, 36px);
   border-radius: 16px;
   border: none;
   background: rgba(255, 255, 255, 0.15);
   color: #fff;
   cursor: pointer;
-  font-size: 24px;
+  font-size: clamp(16px, 1.6vw, 24px);
 }
 
 .board-toggle-top .toggle-button {
@@ -480,6 +513,7 @@ body.cricket-view .player-meta {
 
 
 canvas#dartboard {
+  display: block;
   width: 100%;
   height: 100%;
   background: radial-gradient(circle at center, #0c0a1e 0%, #101030 60%);
@@ -507,11 +541,11 @@ canvas#dartboard {
 }
 
 .cricket-board .cell {
-  padding: 10px;
+  padding: clamp(6px, 0.7vw, 10px);
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.08);
   text-align: center;
-  font-size: 18px;
+  font-size: clamp(13px, 1.2vw, 18px);
 }
 
 .cricket-board .cell.current-col {
@@ -527,10 +561,6 @@ body.cricket-view .cricket-footer {
   display: flex;
 }
 
-body.cricket-view .cricket-board {
-  margin-top: 94px;
-}
-
 .cricket-board .cell.closed {
   text-decoration: line-through;
   opacity: 0.6;
@@ -543,23 +573,34 @@ body.cricket-view .cricket-board {
 .side-panel {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  font-size: 22px;
+  gap: clamp(14px, 1.6vw, 20px);
+  font-size: clamp(16px, 1.5vw, 22px);
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.game-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 1.6vw, 20px);
+  min-height: 0;
 }
 
 .scoreboard {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: clamp(8px, 0.9vw, 12px);
 }
 
 .score-row {
-  padding: 14px 16px;
+  padding: clamp(10px, 1.1vw, 14px) clamp(10px, 1.2vw, 16px);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .score-row.active {
@@ -595,7 +636,7 @@ body.cricket-view .cricket-board {
   padding: 6px 10px;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.12);
-  font-size: 20px;
+  font-size: clamp(15px, 1.4vw, 20px);
 }
 
 .throw-item.throw-miss {
@@ -626,7 +667,7 @@ body.cricket-view .cricket-board {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 96px;
+  font-size: clamp(48px, 8vw, 96px);
   font-weight: 800;
   color: #ff4f4f;
   background: rgba(0, 0, 0, 0.55);
@@ -643,7 +684,8 @@ body.cricket-view .cricket-board {
   list-style: none;
   padding: 0;
   margin: 0;
-  columns: 2;
+  columns: auto;
+  column-width: 150px;
   column-gap: 24px;
   column-rule: 1px solid rgba(255, 255, 255, 0.12);
 }
@@ -739,7 +781,7 @@ body.cricket-view .cricket-board {
 }
 
 .podium-card {
-  width: 220px;
+  width: clamp(150px, 16vw, 220px);
   border-radius: 18px;
   text-align: center;
   color: #fff;
@@ -798,12 +840,13 @@ body.cricket-view .cricket-board {
 }
 
 .history-card {
-  padding: 16px;
+  padding: clamp(12px, 1.3vw, 16px);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 12px;
   cursor: pointer;
 }
@@ -819,6 +862,76 @@ body.cricket-view .cricket-board {
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.08);
   margin-bottom: 16px;
+}
+
+@media (max-width: 1279px) {
+  .game-content {
+    grid-template-columns: minmax(0, 1fr) clamp(200px, 21vw, 250px);
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+
+  .dartboard-panel {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 0;
+  }
+
+  .side-panel {
+    display: contents;
+  }
+
+  .scoreboard {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+  }
+
+  .game-bottom {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    height: clamp(150px, 15vh, 175px);
+  }
+
+  .throw-history,
+  .out-combos {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  .throw-history-list {
+    flex: 1;
+    min-height: 0;
+    max-height: none;
+  }
+
+  .board-stack {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    max-width: none;
+  }
+
+  .board-wrapper {
+    flex: 1;
+    min-height: 0;
+    width: auto;
+    height: auto;
+    aspect-ratio: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .board-canvas-box {
+    width: auto;
+    height: auto;
+    flex: 0 0 auto;
+  }
 }
 
 @keyframes fadeIn {

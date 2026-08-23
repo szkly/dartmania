@@ -92,7 +92,9 @@ function loadTheme() {
   const stored = localStorage.getItem("boardTheme");
   const index = themeOptions.findIndex((option) => option.name === stored);
   state.themeIndex = index >= 0 ? index : 0;
-  themeToggle.textContent = `Theme: ${themeOptions[state.themeIndex].name}`;
+  if (themeToggle) {
+    themeToggle.textContent = `Theme: ${themeOptions[state.themeIndex].name}`;
+  }
 }
 
 function playWhoosh(isBull) {
@@ -223,6 +225,7 @@ function showScreen(screenId) {
   } else {
     topGameMode.classList.add("hidden");
   }
+  document.body.classList.toggle("game-active", screenId === "game");
   state.screen = screenId;
   updateBackToGame();
 }
@@ -435,7 +438,7 @@ function renderCricketBoard(players) {
   if (state.boardView !== "cricket") return;
   cricketBoard.innerHTML = "";
   const segments = ["20", "19", "18", "17", "16", "15", "BULL"];
-  cricketBoard.style.gridTemplateColumns = `140px repeat(${players.length}, 1fr)`;
+  cricketBoard.style.gridTemplateColumns = `minmax(84px, 140px) repeat(${players.length}, minmax(0, 1fr))`;
   const currentId = state.gameState?.players?.[state.gameState.game.currentPlayerIndex]?.id;
 
   const headerEmpty = document.createElement("div");
@@ -1207,13 +1210,15 @@ function init() {
     }
   });
 
-  themeToggle.addEventListener("click", () => {
-    state.themeIndex = (state.themeIndex + 1) % themeOptions.length;
-    const themeName = themeOptions[state.themeIndex].name;
-    themeToggle.textContent = `Theme: ${themeName}`;
-    localStorage.setItem("boardTheme", themeName);
-    drawBoard(getHighlightMap(state.gameState));
-  });
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      state.themeIndex = (state.themeIndex + 1) % themeOptions.length;
+      const themeName = themeOptions[state.themeIndex].name;
+      themeToggle.textContent = `Theme: ${themeName}`;
+      localStorage.setItem("boardTheme", themeName);
+      drawBoard(getHighlightMap(state.gameState));
+    });
+  }
 
   playAgain.addEventListener("click", () => {
     resetLocalState();

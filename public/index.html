@@ -9,9 +9,7 @@
   <body>
     <div id="app">
       <header class="topbar">
-        <button id="theme-toggle" class="nav-button theme-nav-button">Theme: Classic</button>
-        <div class="brand">
-        </div>
+        <div class="brand"></div>
         <div id="top-game-mode" class="top-game-mode"></div>
         <nav class="nav-actions">
           <button id="back-to-game" class="nav-button hidden">Back to Game</button>
@@ -74,8 +72,10 @@
         <section id="screen-game" class="screen">
           <div class="game-header">
             <div class="active-player">
-              <div id="active-player-name" class="active-name"></div>
-              <div id="active-player-score" class="active-score"></div>
+              <div class="active-player-info">
+                <div id="active-player-name" class="active-name"></div>
+                <div id="active-player-score" class="active-score"></div>
+              </div>
               <div class="player-meta">
                 <div id="game-rounds" class="info-card"></div>
                 <div id="dart-count" class="info-card"></div>
@@ -94,8 +94,10 @@
                   <button id="board-view-btn" class="toggle-button">Cricket</button>
                 </div>
                 <div class="board-wrapper">
-                  <canvas id="dartboard"></canvas>
-                  <button id="miss-btn" class="miss-button">Miss!</button>
+                  <div class="board-canvas-box">
+                    <canvas id="dartboard"></canvas>
+                    <button id="miss-btn" class="miss-button">Miss!</button>
+                  </div>
                 </div>
               </div>
               <div id="cricket-board" class="cricket-board hidden"></div>
@@ -107,13 +109,15 @@
 
             <div class="side-panel">
               <div class="scoreboard" id="scoreboard"></div>
-              <div class="throw-history">
-                <h3>Throw History</h3>
-                <div id="throw-history-list" class="throw-history-list"></div>
-              </div>
-              <div class="out-combos">
-                <h3>Checkout Combos</h3>
-                <ul id="out-combo-list"></ul>
+              <div class="game-bottom">
+                <div class="throw-history">
+                  <h3>Throw History</h3>
+                  <div id="throw-history-list" class="throw-history-list"></div>
+                </div>
+                <div class="out-combos">
+                  <h3>Checkout Combos</h3>
+                  <ul id="out-combo-list"></ul>
+                </div>
               </div>
             </div>
           </div>
@@ -143,7 +147,9 @@
           <h1>Game Rules</h1>
           <div class="rules-card">
             <h2>Countdown</h2>
-            <p>Start at 301, 501, or 701 and reduce to zero. You must finish on an exact score; if you bust, your round is forfeited.</p>
+            <p>
+              Start at 301, 501, or 701 and reduce to zero. You must finish on an exact score; if you bust, your round is forfeited.
+            </p>
             <p>Double out mode requires your final dart to land in a double ring (or double bull).</p>
           </div>
           <div class="rules-card">
@@ -153,7 +159,10 @@
           </div>
           <div class="rules-card">
             <h2>Cricket</h2>
-            <p>Cut-throat rules: hit 15-20 and bull three times to close each number. After you close a number, extra hits add points to opponents who have not closed it. Close all and have the lowest score to win.</p>
+            <p>
+              Cut-throat rules: hit 15-20 and bull three times to close each number. After you close a number, extra hits add points to
+              opponents who have not closed it. Close all and have the lowest score to win.
+            </p>
           </div>
         </section>
       </main>
