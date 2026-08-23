@@ -96,7 +96,7 @@ async function createGame({ players, mode, format, rounds, doubleOut }) {
       const color = COLOR_PALETTE[index % COLOR_PALETTE.length];
       await db.run("INSERT INTO players (id, name, color) VALUES (?, ?, ?)", [
         playerId,
-        name.trim() || `Player ${index + 1}`,
+        name.trim() || `Játékos ${index + 1}`,
         color
       ]);
       await db.run(

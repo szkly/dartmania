@@ -35,7 +35,7 @@ app.get("/api/game/:gameId", async (req, res) => {
 app.post("/api/game", async (req, res) => {
   const { players, mode, format, rounds, doubleOut } = req.body;
   if (!players || players.length === 0) {
-    return res.status(400).json({ error: "Players required" });
+    return res.status(400).json({ error: "Játékosok megadása szükséges" });
   }
   const gameId = await createGame({
     players,

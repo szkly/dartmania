@@ -38,13 +38,10 @@ const dartCountPill = document.getElementById("dart-count");
 const gameRoundsBottom = document.getElementById("game-rounds-bottom");
 const dartCountBottom = document.getElementById("dart-count-bottom");
 const scoreboard = document.getElementById("scoreboard");
-const outComboList = document.getElementById("out-combo-list");
-const outCombosPanel = document.querySelector(".out-combos");
 const cricketBoard = document.getElementById("cricket-board");
 const boardViewBtn = document.getElementById("board-view-btn");
 const missBtn = document.getElementById("miss-btn");
 const themeToggle = document.getElementById("theme-toggle");
-const throwHistoryList = document.getElementById("throw-history-list");
 const bustOverlay = document.getElementById("bust-overlay");
 const backToGameBtn = document.getElementById("back-to-game");
 const podium = document.getElementById("podium");
@@ -93,7 +90,7 @@ function loadTheme() {
   const index = themeOptions.findIndex((option) => option.name === stored);
   state.themeIndex = index >= 0 ? index : 0;
   if (themeToggle) {
-    themeToggle.textContent = `Theme: ${themeOptions[state.themeIndex].name}`;
+    themeToggle.textContent = `Téma: ${themeOptions[state.themeIndex].name}`;
   }
 }
 
@@ -249,7 +246,7 @@ function renderPlayerInputs() {
   playerNames.innerHTML = "";
   for (let i = 0; i < state.playerCount; i += 1) {
     const input = document.createElement("input");
-    input.placeholder = `Player ${i + 1}`;
+    input.placeholder = `Játékos ${i + 1}`;
     playerNames.appendChild(input);
   }
 }
@@ -353,8 +350,8 @@ function renderGameState() {
       ? game.mode.toUpperCase()
       : `${game.mode.toUpperCase()} ${formatLabel}`;
   topGameMode.textContent = modeLabel;
-  const roundText = `Round: ${currentRound} / ${game.rounds}`;
-  const dartText = `Throw: ${game.dartIndex} / 3`;
+  const roundText = `Kör: ${currentRound} / ${game.rounds}`;
+  const dartText = `Nyíl: ${game.dartIndex} / 3`;
   gameRoundsPill.textContent = roundText;
   dartCountPill.textContent = dartText;
   if (gameRoundsBottom && dartCountBottom) {
@@ -387,22 +384,6 @@ function renderGameState() {
     scoreboard.appendChild(row);
   });
 
-  if (outCombosPanel) {
-    outCombosPanel.classList.toggle("hidden", game.mode === "cricket");
-  }
-  outComboList.innerHTML = "";
-  if (gameState.outCombos.length === 0) {
-    const li = document.createElement("li");
-    li.textContent = "No finish available";
-    outComboList.appendChild(li);
-  } else {
-    gameState.outCombos.forEach((combo) => {
-      const li = document.createElement("li");
-      li.textContent = combo;
-      outComboList.appendChild(li);
-    });
-  }
-
   if (game.mode === "cricket") {
     boardViewBtn.parentElement.classList.remove("hidden");
   } else {
@@ -411,7 +392,6 @@ function renderGameState() {
   }
 
   renderCricketBoard(players);
-  renderThrowHistory(gameState.turns || [], currentPlayer.id);
   redrawDartboard();
   showBustAnimation(gameState.turns || []);
 
@@ -483,30 +463,6 @@ function formatCricketMark(count) {
   return "O";
 }
 
-function renderThrowHistory(turns, playerId) {
-  throwHistoryList.innerHTML = "";
-  turns
-    .filter((turn) => turn.player_id === playerId)
-    .slice()
-    .reverse()
-    .forEach((turn) => {
-      const item = document.createElement("div");
-      const throwType = getThrowType(turn.segment);
-      item.className = `throw-item ${throwType}`;
-      item.textContent = `${turn.segment}`;
-      throwHistoryList.appendChild(item);
-    });
-}
-
-function getThrowType(segment) {
-  if (segment === "MISS") return "throw-miss";
-  if (segment === "SB") return "throw-bull";
-  if (segment === "DB") return "throw-bull";
-  if (segment.startsWith("T")) return "throw-triple";
-  if (segment.startsWith("D")) return "throw-double";
-  return "throw-single";
-}
-
 function showBustAnimation(turns) {
   const lastTurn = turns[turns.length - 1];
   if (!lastTurn || Number(lastTurn.is_bust) !== 1) {
@@ -557,7 +513,7 @@ function renderPodium() {
     name.style.fontSize = "22px";
     name.textContent = winner.name;
     const score = document.createElement("div");
-    score.textContent = `${winner.score} pts`;
+    score.textContent = `${winner.score} pont`;
     top.appendChild(place);
     top.appendChild(name);
     top.appendChild(score);
@@ -831,7 +787,7 @@ function loadHistory() {
           .join(" · ");
         const details = document.createElement("div");
         const line1 = document.createElement("div");
-        line1.textContent = `${title} · Rounds ${entry.rounds}`;
+        line1.textContent = `${title} · Körök: ${entry.rounds}`;
         const line2 = document.createElement("div");
         line2.textContent = podium;
         const line3 = document.createElement("div");
@@ -846,7 +802,7 @@ function loadHistory() {
         const deleteButton = document.createElement("button");
         deleteButton.className = "secondary-button delete-history";
         deleteButton.dataset.game = entry.game_id;
-        deleteButton.textContent = "Delete";
+        deleteButton.textContent = "Törlés";
         actions.appendChild(deleteButton);
 
         card.appendChild(details);
@@ -1053,7 +1009,7 @@ function getSegmentForPoint(x, y) {
 
 function toggleBoardView(view) {
   state.boardView = view;
-  boardViewBtn.textContent = view === "dartboard" ? "Match" : "Dartboard";
+  boardViewBtn.textContent = view === "dartboard" ? "Táblázat" : "Tábla";
   if (view === "dartboard") {
     dartboard.classList.remove("hidden");
     boardWrapper.classList.remove("hidden");
@@ -1214,7 +1170,7 @@ function init() {
     themeToggle.addEventListener("click", () => {
       state.themeIndex = (state.themeIndex + 1) % themeOptions.length;
       const themeName = themeOptions[state.themeIndex].name;
-      themeToggle.textContent = `Theme: ${themeName}`;
+      themeToggle.textContent = `Téma: ${themeName}`;
       localStorage.setItem("boardTheme", themeName);
       drawBoard(getHighlightMap(state.gameState));
     });

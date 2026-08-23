@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="hu">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,47 +12,47 @@
         <div class="brand"></div>
         <div id="top-game-mode" class="top-game-mode"></div>
         <nav class="nav-actions">
-          <button id="back-to-game" class="nav-button hidden">Back to Game</button>
-          <button class="nav-button" data-nav="setup">New Game</button>
-          <button class="nav-button" data-nav="history">History</button>
-          <button class="nav-button" data-nav="rules">Rules</button>
+          <button id="back-to-game" class="nav-button hidden">Vissza a játékhoz</button>
+          <button class="nav-button" data-nav="setup">Új játék</button>
+          <button class="nav-button" data-nav="history">Előzmények</button>
+          <button class="nav-button" data-nav="rules">Szabályok</button>
         </nav>
       </header>
 
       <main>
         <section id="screen-setup" class="screen active">
-          <h1>Players</h1>
+          <h1>Játékosok</h1>
           <div class="player-count">
-            <span>Select number of players</span>
+            <span>Válaszd ki a játékosok számát</span>
             <div class="count-buttons" id="player-count-buttons"></div>
           </div>
           <div id="player-names" class="player-names"></div>
-          <button id="to-mode" class="primary-button">Continue</button>
+          <button id="to-mode" class="primary-button">Tovább</button>
         </section>
 
         <section id="screen-mode" class="screen">
-          <h1>Choose Game Type</h1>
+          <h1>Válassz játéktípust</h1>
           <div class="mode-grid">
             <button class="mode-card" data-mode="countdown">
               <div class="mode-title">Countdown</div>
-              <p>Start high, finish at zero.</p>
+              <p>Kezdj magasról, fejezz be nullán.</p>
             </button>
             <button class="mode-card" data-mode="countup">
               <div class="mode-title">Countup</div>
-              <p>Build score to the target.</p>
+              <p>Gyűjts pontot a célértékig.</p>
             </button>
             <button class="mode-card" data-mode="cricket">
               <div class="mode-title">Cricket</div>
-              <p>Close 15-20 and bull.</p>
+              <p>Zárd le a 15–20-at és a bullt.</p>
             </button>
           </div>
         </section>
 
         <section id="screen-format" class="screen">
-          <h1>Game Settings</h1>
+          <h1>Beállítások</h1>
           <div id="format-options" class="format-options"></div>
           <div class="rounds-config">
-            <span>Rounds</span>
+            <span>Körök</span>
             <div class="rounds-controls">
               <button id="rounds-plus" class="mini-button">+</button>
               <div id="rounds-value" class="rounds-value">10</div>
@@ -63,10 +63,10 @@
             <label class="toggle">
               <input id="double-out" type="checkbox" />
               <span class="slider"></span>
-              <span class="label">Double out required</span>
+              <span class="label">Dupla kiszálló</span>
             </label>
           </div>
-          <button id="start-game" class="primary-button start-game">Start Game</button>
+          <button id="start-game" class="primary-button start-game">Játék indítása</button>
         </section>
 
         <section id="screen-game" class="screen">
@@ -82,8 +82,8 @@
               </div>
             </div>
             <div class="header-actions">
-              <button id="undo" class="secondary-button">Undo</button>
-              <button id="end-game" class="danger-button">End Game</button>
+              <button id="undo" class="secondary-button">Visszavonás</button>
+              <button id="end-game" class="danger-button">Játék befejezése</button>
             </div>
           </div>
 
@@ -96,7 +96,7 @@
                 <div class="board-wrapper">
                   <div class="board-canvas-box">
                     <canvas id="dartboard"></canvas>
-                    <button id="miss-btn" class="miss-button">Miss!</button>
+                    <button id="miss-btn" class="miss-button">Mellé!</button>
                   </div>
                 </div>
               </div>
@@ -109,16 +109,6 @@
 
             <div class="side-panel">
               <div class="scoreboard" id="scoreboard"></div>
-              <div class="game-bottom">
-                <div class="throw-history">
-                  <h3>Throw History</h3>
-                  <div id="throw-history-list" class="throw-history-list"></div>
-                </div>
-                <div class="out-combos">
-                  <h3>Checkout Combos</h3>
-                  <ul id="out-combo-list"></ul>
-                </div>
-              </div>
             </div>
           </div>
           <div id="bust-overlay" class="bust-overlay hidden">BUST!</div>
@@ -135,33 +125,33 @@
             <div id="chart-x-axis" class="chart-x-axis"></div>
           </div>
           <div id="podium-cricket-board" class="cricket-board podium-cricket-board hidden"></div>
-          <button id="play-again" class="primary-button">New Game</button>
+          <button id="play-again" class="primary-button">Új játék</button>
         </section>
 
         <section id="screen-history" class="screen">
-          <h1>Game History</h1>
+          <h1>Előzmények</h1>
           <div id="history-list" class="history-list"></div>
         </section>
 
         <section id="screen-rules" class="screen">
-          <h1>Game Rules</h1>
+          <h1>Szabályok</h1>
           <div class="rules-card">
             <h2>Countdown</h2>
             <p>
-              Start at 301, 501, or 701 and reduce to zero. You must finish on an exact score; if you bust, your round is forfeited.
+              301, 501 vagy 701 pontról indulsz, és nullára kell jönnöd. Pontosan a nullát kell eltalálnod; bust esetén az adott köröd érvénytelen.
             </p>
-            <p>Double out mode requires your final dart to land in a double ring (or double bull).</p>
+            <p>Dupla kiszálló esetén az utolsó nyiladnak dupla szektorba (vagy bullba) kell érkeznie.</p>
           </div>
           <div class="rules-card">
             <h2>Countup</h2>
-            <p>Build your score up to the target. You must reach the exact score to win. If you exceed it, the round is forfeited.</p>
-            <p>With ∞ mode, play the chosen rounds and highest score wins.</p>
+            <p>Gyűjtsd a pontokat a célértékig. Pontosan a célértéket elérve nyersz. Ha túllövöd, a köröd érvénytelen.</p>
+            <p>∞ módban a választott körök lejátszása után a magasabb pontszám nyer.</p>
           </div>
           <div class="rules-card">
             <h2>Cricket</h2>
             <p>
-              Cut-throat rules: hit 15-20 and bull three times to close each number. After you close a number, extra hits add points to
-              opponents who have not closed it. Close all and have the lowest score to win.
+              A 15-20-at és a bullt három találattal zárod le. Egy szám lezárása után a további találatok pontot írnak
+              azoknak az ellenfeleknek, akik még nem zárták le azt a számot. Aki először lezár mindent és egyben a legalacsonyabb pontszámmal rendelkezik, nyer.
             </p>
           </div>
         </section>
