@@ -1,0 +1,29 @@
+services:
+  dartmania:
+    image: ghcr.io/szkly/dartmania:${DARTMANIA_TAG:-latest}
+    pull_policy: always
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 128M
+        reservations:
+          cpus: "0.25"
+          memory: 64M
+    read_only: false
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "8003:8003"
+    environment:
+      - DB_PATH=/data/dartmania.sqlite
+    volumes:
+      - dartmania-data:/data
+
+volumes:
+  dartmania-data:

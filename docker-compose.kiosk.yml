@@ -1,0 +1,37 @@
+services:
+  dartmania-kiosk-1: &dartmania
+    image: ghcr.io/szkly/dartmania:${DARTMANIA_TAG:-latest}
+    pull_policy: always
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 128M
+        reservations:
+          cpus: "0.25"
+          memory: 64M
+    read_only: false
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "8003:8003"
+    environment:
+      - DB_PATH=/data/dartmania.sqlite
+    volumes:
+      - dartmania-kiosk-data-1:/data
+
+  dartmania-kiosk-2:
+    <<: *dartmania
+    ports:
+      - "8004:8003"
+    volumes:
+      - dartmania-kiosk-data-2:/data
+
+volumes:
+  dartmania-kiosk-data-1:
+  dartmania-kiosk-data-2:

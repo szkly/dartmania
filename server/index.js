@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const { initDb } = require("./db");
+const { getDb, initDb } = require("./db");
 const {
   createGame,
   getLatestInProgressGameId,
@@ -78,10 +78,31 @@ app.delete("/api/history/:gameId", async (req, res) => {
   return res.json({ ok: true });
 });
 
+app.get("/kiosk", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "public", "kiosk.html"));
+});
+
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "public", "index.html"));
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Dartmania running on port ${PORT}`);
 });
+
+async function shutdown(signal) {
+  console.log(`${signal} received, shutting down`);
+  try {
+    await new Promise((resolve) => server.close(resolve));
+    server.closeAllConnections();
+    const db = await getDb();
+    await db.close();
+    process.exit(0);
+  } catch (err) {
+    console.error("Error during shutdown:", err);
+    process.exit(1);
+  }
+}
+
+process.on("SIGTERM", () => shutdown("SIGTERM"));
+process.on("SIGINT", () => shutdown("SIGINT"));
